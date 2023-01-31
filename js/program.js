@@ -10,6 +10,8 @@ document.getElementById('result').style.display = 'none';
 // var : global
 
 
+
+
 ///////////////////
 // GENERIC STUFF //
 ///////////////////
@@ -321,12 +323,6 @@ function Prep_InitializeQuiz() {
             }
         }
 
-        // Check if the question is from a streamer
-        //let ele2 = document.getElementById(`q${i}b`);
-        //if (ele2.checked) {
-        //    qFromStreamer = true;
-        //}
-
         // Add all the question info to the array
         questions.push([q, a1, a2, a3, a4, r, qFromStreamer]);
     }
@@ -359,12 +355,13 @@ function Prep_debug() {
     console.log(questions.length);
 
     for (let i=0; i<questions.length; i++) {
-        console.log(questions[i][0]);
-        console.log(questions[i][1]);
-        console.log(questions[i][2]);
-        console.log(questions[i][3]);
-        console.log(questions[i][4]);
-        console.log(questions[i][5]);
+        console.log("Question " + (i + 1) + ": " + questions[i][0]);
+        console.log("Answer 1" + ": " + questions[i][1]);
+        console.log("Answer 2 "+ ": " + questions[i][2]);
+        console.log("Answer 3 " + ": " + questions[i][3]);
+        console.log("Answer 4 " + ": " + questions[i][4]);
+        console.log("Answer " + ": " + questions[i][5]);
+        console.log("Score " + ": " + questions[i][6]);
         console.log('---------------');
     }
 }
@@ -506,6 +503,45 @@ function compareSecondColumn(a, b) {
     }
 }
 
+// Load a config from a file
+function LoadConfig(content) {
+    questions = [];
+
+    let tempArray = content.split("\n");
+    channelToListen = tempArray[0];
+
+    for (let i=0; i<Math.floor(tempArray.length / 7); i++) {
+        // Go through every lines
+        let q = tempArray[1 + (i * 7)];
+        let a1 = tempArray[2 + (i * 7)];
+        let a2 = tempArray[3 + (i * 7)];
+        let a3 = tempArray[4 + (i * 7)];
+        let a4 = tempArray[5 + (i * 7)];
+        let r = tempArray[6 + (i * 7)];
+        let qFromStreamer = tempArray[7 + (i * 7)];
+
+        // Add all the question info to the array
+        questions.push([q, a1, a2, a3, a4, r, qFromStreamer]);
+    }
+
+    Chart_PrepareChart();
+
+    document.getElementById('preparation').style.display = 'none';
+    document.getElementById('playing').style.display = 'block';
+
+    document.getElementById('playQuestionPoint').innerHTML = '<H5>Good answer adds ' + questions[currentQuestion][6] + ' points.<BR>Bad answer removes ' + (questions[currentQuestion][6]/2) + ' points.</H5>';
+    document.getElementById('playQuestion').innerHTML = '<H2>' + questions[currentQuestion][0] + '</H2>';
+    document.getElementById('playReponse1').innerHTML = 'A. ' + questions[currentQuestion][1];
+    document.getElementById('playReponse2').innerHTML = 'B. ' + questions[currentQuestion][2];
+    document.getElementById('playReponse3').innerHTML = 'C. ' + questions[currentQuestion][3];
+    document.getElementById('playReponse4').innerHTML = 'D. ' + questions[currentQuestion][4];
+
+    document.getElementById('playReponse1').style.display = 'none';
+    document.getElementById('playReponse2').style.display = 'none';
+    document.getElementById('playReponse3').style.display = 'none';
+    document.getElementById('playReponse4').style.display = 'none';
+}
+
 // Event Handlers
 document.getElementById('addQuestion').addEventListener('click',Prep_AddQuestion); // addEventListener('click'),() => {maFunction(props)});
 document.getElementById('removeQuestion').addEventListener('click',Prep_RemoveQuestion);
@@ -517,3 +553,18 @@ document.getElementById('playShowAnswer').addEventListener('click',Play_ShowAnsw
 document.getElementById('playShowChart').addEventListener('click',Chart_UpdateChart);
 document.getElementById('playNext').addEventListener('click',Play_NextQuestion);
 document.getElementById('playScoreboard').addEventListener('click',Play_ShowScoreboard);
+
+// Loads a file
+document.getElementById('loadConfig').addEventListener('change', function () {
+    if (this.files && this.files[0]) {
+      var myFile = this.files[0];
+      var reader = new FileReader();
+      
+      reader.addEventListener('load', function (e) {
+        //output.textContent = e.target.result;
+        LoadConfig(e.target.result);
+      });
+      
+      reader.readAsText(myFile);
+    }   
+  });
