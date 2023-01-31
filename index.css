@@ -1,0 +1,80 @@
+body {
+    margin: auto;
+    max-width: 768px;
+}
+
+div {
+    width: 100%;
+}
+
+input {
+    width: 100%;
+}
+input.radio {
+    width: 32px;
+}
+input.answer, pre {
+    max-width: 512px;
+}
+
+div.controls {
+    display: flex;
+    margin: auto;
+}
+div.answer {
+    display: flex;
+}
+
+button.control {
+    width: 30%;
+    margin: auto;
+}
+
+div#playPieChart {
+    float: left;
+    max-width: 256px;
+}
+div#playQuestionSection {
+    float: left;
+    max-width: 512px;
+    height: 400px;
+}
+div#playQuestion {
+    padding-top: 12px;
+    font-size: 1.25em;
+}
+div#playReponse1, div#playReponse2, div#playReponse3, div#playReponse4 {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 4px;
+    
+    font-weight: bolder;
+    font-size: 1.5em;
+}
+
+table.scoreboard {
+    width: 40%;
+    border: 1px solid black;
+    margin: auto;
+    
+    font-weight: bolder;
+}
+
+tr {
+    border: 1px solid gray;
+}
+td {
+    border: 1px solid gray;
+}
+
+.scorePosition {
+    width: 10%;
+}
+.scoreName {
+    width: 70%;
+}
+
+
+#debug {
+    display: none;
+}

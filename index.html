@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<HTML>
+    <HEAD>
+        <TITLE>ETPFE by FredyJabe</TITLE>
+
+        <META charset="UTF-8">
+        <META name="keywords" content="twitch poll free">
+        <META name="description" content="">
+        <META name="author" content="Frederic 'FredyJabe' Jackson-Beaudoin">
+        <META name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <LINK rel="stylesheet" href="index.css">
+    </HEAD>
+    <BODY>
+        <DIV id="preparation">
+            <DIV id="prep">
+                <DIV>Channel</DIV>
+                <DIV><INPUT type="text" id="channelToListen"/></DIV>
+                <HR>
+            </DIV>
+            <DIV id="prepControls">
+                <BUTTON class="control" id="addQuestion">Add Question</BUTTON>
+                <BUTTON class="control" id="removeQuestion">Remove Question</BUTTON>
+                <BUTTON class="control" id="play">Start</BUTTON>
+            </DIV>
+        </DIV>
+        <DIV id="playing">
+            <DIV id="playQuestionSection">
+                <DIV id="playQuestionPoint"></DIV>
+                <DIV id="playQuestion"></DIV>
+                <DIV id="playReponse1"></DIV>
+                <DIV id="playReponse2"></DIV>
+                <DIV id="playReponse3"></DIV>
+                <DIV id="playReponse4"></DIV>
+            </DIV>
+            <DIV id="playPieChart">
+                <CANVAS id="myChart" width="200" height="200"></CANVAS>
+            </DIV>
+            <DIV id="playControls">
+                <BUTTON class="control" id="startPlayTimer">Start</BUTTON>
+                <BUTTON class="control" id="stopPlayTimer">Stop</BUTTON>
+                <BUTTON class="control" id="time" disabled></BUTTON>
+                <BUTTON class="control" id="playShowChart">Update Graphic</BUTTON>
+                <BUTTON class="control" id="playShowAnswer" disabled>Show Answer</BUTTON>
+                <BUTTON class="control" id="playNext">Next</BUTTON>
+                <BUTTON class="control" id="playScoreboard">Show Score</BUTTON>
+            </DIV>
+        </DIV>
+        <DIV id="result">
+
+        </DIV>
+
+        <SCRIPT src="cookie.js"></SCRIPT>
+        <SCRIPT src="tmi.min.js"></SCRIPT>
+        <SCRIPT src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></SCRIPT>
+        <SCRIPT src="timer.js"></SCRIPT>
+        <SCRIPT src="program.js" type="module"></SCRIPT>
+    </BODY>
+</HTML>
