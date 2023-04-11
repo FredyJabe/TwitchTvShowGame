@@ -26,7 +26,7 @@ var questions = [];
     // 3: Answer C
     // 4: Answer D
     // 5: Good answer
-    // 6: Worth 3 pts instead of 1
+    // 6: Worth X pts
 var currentQuestion = 0;
 var questionAmount = 0;
 
@@ -341,8 +341,12 @@ function Prep_InitializeQuiz() {
     document.getElementById('playQuestion').innerHTML = '<H2>' + questions[currentQuestion][0] + '</H2>';
     document.getElementById('playReponse1').innerHTML = 'A. ' + questions[currentQuestion][1];
     document.getElementById('playReponse2').innerHTML = 'B. ' + questions[currentQuestion][2];
-    document.getElementById('playReponse3').innerHTML = 'C. ' + questions[currentQuestion][3];
-    document.getElementById('playReponse4').innerHTML = 'D. ' + questions[currentQuestion][4];
+    if (questions[currentQuestion][3] !== "") {
+        document.getElementById('playReponse3').innerHTML = 'C. ' + questions[currentQuestion][3];
+    }
+    if (questions[currentQuestion][4] !== "") {
+        document.getElementById('playReponse4').innerHTML = 'D. ' + questions[currentQuestion][4];
+    }
 
     document.getElementById('playReponse1').style.display = 'none';
     document.getElementById('playReponse2').style.display = 'none';
@@ -429,9 +433,22 @@ function Play_NextQuestion() {
         document.getElementById('playReponse1').style.backgroundColor = '';
         document.getElementById('playReponse2').innerHTML = 'B. ' + questions[currentQuestion][2];
         document.getElementById('playReponse2').style.backgroundColor = '';
-        document.getElementById('playReponse3').innerHTML = 'C. ' + questions[currentQuestion][3];
+
+
+        if (questions[currentQuestion][3] !== "") {
+            document.getElementById('playReponse3').innerHTML = 'C. ' + questions[currentQuestion][3];
+        }
+        else {
+            document.getElementById('playReponse3').innerHTML = '';
+        }
+        if (questions[currentQuestion][4] !== "") {
+            document.getElementById('playReponse4').innerHTML = 'D. ' + questions[currentQuestion][4];
+        }
+        else {
+            document.getElementById('playReponse4').innerHTML = '';
+        }
+
         document.getElementById('playReponse3').style.backgroundColor = '';
-        document.getElementById('playReponse4').innerHTML = 'D. ' + questions[currentQuestion][4];
         document.getElementById('playReponse4').style.backgroundColor = '';
     }
     else {
@@ -520,31 +537,21 @@ function LoadConfig(content) {
         }
 
         if (tempArray[i].startsWith("channel=")) {
-            document.getElementById(`channelToListen`).value = tempArray[i].substring(8);
+            document.getElementById(`channelToListen`).value = tempArray[i].substring(tempArray[i].indexOf("=")+1);
         }
 
         if (tempArray[i].startsWith("q=")) {
-            document.getElementById(`q${questionNumber}`).value = tempArray[i].substring(2);
+            document.getElementById(`q${questionNumber}`).value = tempArray[i].substring(tempArray[i].indexOf("=")+1);
         }
 
-        if (tempArray[i].startsWith("a1=")) {
-            document.getElementById(`q${questionNumber}a1`).value = tempArray[i].substring(3);
+        for (var j=1; j<=4; j++) {
+            if (tempArray[i].startsWith(`a${j}=`)) {
+                document.getElementById(`q${questionNumber}a${j}`).value = tempArray[i].substring(tempArray[i].indexOf("=")+1);
+            }
         }
-
-        if (tempArray[i].startsWith("a2=")) {
-            document.getElementById(`q${questionNumber}a2`).value = tempArray[i].substring(3);
-        }
-
-        if (tempArray[i].startsWith("a3=")) {
-            document.getElementById(`q${questionNumber}a3`).value = tempArray[i].substring(3);
-        }
-
-        if (tempArray[i].startsWith("a4=")) {
-            document.getElementById(`q${questionNumber}a4`).value = tempArray[i].substring(3);
-        }
-
+        
         if (tempArray[i].startsWith("value=")) {
-            document.getElementById(`q${questionNumber}b`).value = Number(tempArray[i].substring(6));
+            document.getElementById(`q${questionNumber}b`).value = Number(tempArray[i].substring(tempArray[i].indexOf("=")+1));
         }
 
         if (tempArray[i].startsWith("good=")) {
@@ -552,7 +559,7 @@ function LoadConfig(content) {
             document.getElementsByName(`q${questionNumber}n`)[1].checked = false;
             document.getElementsByName(`q${questionNumber}n`)[2].checked = false;
             document.getElementsByName(`q${questionNumber}n`)[3].checked = false;
-            document.getElementsByName(`q${questionNumber}n`)[tempArray[i].substring(5)-1].checked = true;
+            document.getElementsByName(`q${questionNumber}n`)[tempArray[i].substring(tempArray[i].indexOf("=")+1)-1].checked = true;
         }
     }
 }
