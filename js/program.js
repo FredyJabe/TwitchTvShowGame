@@ -399,8 +399,6 @@ function Play_StopTimer() {
     document.getElementById('playShowAnswer').disabled = false;
 
     timer.stop();
-    //document.getElementById('playNext').style.display = '';
-
 
     if (((currentQuestion+1) % 11) == 0 || currentQuestion == 0) {
         document.getElementById('playScoreboard').disabled = false;
@@ -509,8 +507,6 @@ function Scores_UpdateTable() {
     d.innerHTML = temp;
 }
 
-//a.sort(compareSecondColumn);
-
 function compareSecondColumn(a, b) {
     if (a[1] === b[1]) {
         return 0;
@@ -525,10 +521,8 @@ function LoadConfig(content) {
     questions = [];
 
     let tempArray = content.split("\n");
-    //channelToListen = tempArray[0];
     Prep_RemoveQuestion();
 
-    //for (let i=0; i<(Math.floor(tempArray.length / 7) + 1); i++) {
     for (let i=0; i<tempArray.length; i++) {
         let questionNumber = questionAmount - 1;
 
