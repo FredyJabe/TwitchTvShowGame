@@ -9,9 +9,6 @@ document.getElementById('result').style.display = 'none';
 // let : local
 // var : global
 
-
-
-
 ///////////////////
 // GENERIC STUFF //
 ///////////////////
@@ -66,7 +63,7 @@ function Twitch_StopClient() {
 /////////////////////
 // PIE CHART STUFF //
 /////////////////////
-
+/*
 var c1 = 0;
 var c2 = 0;
 var c3 = 0;
@@ -128,6 +125,7 @@ function Chart_ResetChart() {
 
     Chart_UpdateChart();
 }
+*/
 
 // Makes sure that everyone only vote once
 function Chart_Vote(choix, user) {
@@ -332,7 +330,7 @@ function Prep_InitializeQuiz() {
     channelToListen = document.getElementById('channelToListen').value;
     console.log('channel: ' + channelToListen);
 
-    Chart_PrepareChart();
+    //Chart_PrepareChart();
 
     document.getElementById('preparation').style.display = 'none';
     document.getElementById('playing').style.display = 'block';
@@ -413,7 +411,7 @@ function Play_NextQuestion() {
     document.getElementById('result').style.display = 'none';
     document.getElementById('playScoreboard').disabled = true;
     
-    Chart_ResetChart();
+    //Chart_ResetChart();
 
     document.getElementById('playReponse1').style.display = 'none';
     document.getElementById('playReponse2').style.display = 'none';
@@ -566,7 +564,7 @@ document.getElementById('play').addEventListener('click',Prep_InitializeQuiz);
 document.getElementById('startPlayTimer').addEventListener('click',Play_StartTimer);
 document.getElementById('stopPlayTimer').addEventListener('click',Play_StopTimer);
 document.getElementById('playShowAnswer').addEventListener('click',Play_ShowAnswer);
-document.getElementById('playShowChart').addEventListener('click',Chart_UpdateChart);
+//document.getElementById('playShowChart').addEventListener('click',Chart_UpdateChart);
 document.getElementById('playNext').addEventListener('click',Play_NextQuestion);
 document.getElementById('playScoreboard').addEventListener('click',Play_ShowScoreboard);
 
