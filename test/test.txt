@@ -1,15 +1,18 @@
-deinoka
-Test Question 1
-Test Answer 1
-Test Answer 2
-Test Answer 3
-Test Answer 4
-3
-2
-Test Question 2
-Test Answer 5
-Test Answer 6
-Test Answer 7
-Test Answer 8
-1
-5
+# Config file
+channel=fredyjabe
+NEW
+q=Question 1
+a1=a1
+a2=a2
+a3=a3
+a4=a4
+value=1
+good=3
+NEW
+q=Question 2!
+a1=a5
+a2=a6
+a3=a7
+a4=a8
+value=5
+good=2

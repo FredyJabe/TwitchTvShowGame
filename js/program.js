@@ -508,38 +508,53 @@ function LoadConfig(content) {
     questions = [];
 
     let tempArray = content.split("\n");
-    channelToListen = tempArray[0];
+    //channelToListen = tempArray[0];
+    Prep_RemoveQuestion();
 
-    for (let i=0; i<Math.floor(tempArray.length / 7); i++) {
-        // Go through every lines
-        let q = tempArray[1 + (i * 7)];
-        let a1 = tempArray[2 + (i * 7)];
-        let a2 = tempArray[3 + (i * 7)];
-        let a3 = tempArray[4 + (i * 7)];
-        let a4 = tempArray[5 + (i * 7)];
-        let r = tempArray[6 + (i * 7)];
-        let qFromStreamer = tempArray[7 + (i * 7)];
+    //for (let i=0; i<(Math.floor(tempArray.length / 7) + 1); i++) {
+    for (let i=0; i<tempArray.length; i++) {
+        let questionNumber = questionAmount - 1;
 
-        // Add all the question info to the array
-        questions.push([q, a1, a2, a3, a4, r, qFromStreamer]);
+        if (tempArray[i].startsWith("NEW")) {
+            Prep_AddQuestion();
+        }
+
+        if (tempArray[i].startsWith("channel=")) {
+            document.getElementById(`channelToListen`).value = tempArray[i].substring(8);
+        }
+
+        if (tempArray[i].startsWith("q=")) {
+            document.getElementById(`q${questionNumber}`).value = tempArray[i].substring(2);
+        }
+
+        if (tempArray[i].startsWith("a1=")) {
+            document.getElementById(`q${questionNumber}a1`).value = tempArray[i].substring(3);
+        }
+
+        if (tempArray[i].startsWith("a2=")) {
+            document.getElementById(`q${questionNumber}a2`).value = tempArray[i].substring(3);
+        }
+
+        if (tempArray[i].startsWith("a3=")) {
+            document.getElementById(`q${questionNumber}a3`).value = tempArray[i].substring(3);
+        }
+
+        if (tempArray[i].startsWith("a4=")) {
+            document.getElementById(`q${questionNumber}a4`).value = tempArray[i].substring(3);
+        }
+
+        if (tempArray[i].startsWith("value=")) {
+            document.getElementById(`q${questionNumber}b`).value = Number(tempArray[i].substring(6));
+        }
+
+        if (tempArray[i].startsWith("good=")) {
+            document.getElementsByName(`q${questionNumber}n`)[0].checked = false;
+            document.getElementsByName(`q${questionNumber}n`)[1].checked = false;
+            document.getElementsByName(`q${questionNumber}n`)[2].checked = false;
+            document.getElementsByName(`q${questionNumber}n`)[3].checked = false;
+            document.getElementsByName(`q${questionNumber}n`)[tempArray[i].substring(5)-1].checked = true;
+        }
     }
-
-    Chart_PrepareChart();
-
-    document.getElementById('preparation').style.display = 'none';
-    document.getElementById('playing').style.display = 'block';
-
-    document.getElementById('playQuestionPoint').innerHTML = '<H5>Good answer adds ' + questions[currentQuestion][6] + ' points.<BR>Bad answer removes ' + (questions[currentQuestion][6]/2) + ' points.</H5>';
-    document.getElementById('playQuestion').innerHTML = '<H2>' + questions[currentQuestion][0] + '</H2>';
-    document.getElementById('playReponse1').innerHTML = 'A. ' + questions[currentQuestion][1];
-    document.getElementById('playReponse2').innerHTML = 'B. ' + questions[currentQuestion][2];
-    document.getElementById('playReponse3').innerHTML = 'C. ' + questions[currentQuestion][3];
-    document.getElementById('playReponse4').innerHTML = 'D. ' + questions[currentQuestion][4];
-
-    document.getElementById('playReponse1').style.display = 'none';
-    document.getElementById('playReponse2').style.display = 'none';
-    document.getElementById('playReponse3').style.display = 'none';
-    document.getElementById('playReponse4').style.display = 'none';
 }
 
 // Event Handlers
@@ -561,7 +576,6 @@ document.getElementById('loadConfig').addEventListener('change', function () {
       var reader = new FileReader();
       
       reader.addEventListener('load', function (e) {
-        //output.textContent = e.target.result;
         LoadConfig(e.target.result);
       });
       
