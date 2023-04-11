@@ -21,7 +21,7 @@ Here's an example
 ```txt
 # Config example
 channel=fredyjabe
-
+#
 NEW
 q=How many answers can you add?
 a1=1
